@@ -1,0 +1,4 @@
+__pycache__/
+independent_check/*.json
+!independent_check/.keep
+verification.json
