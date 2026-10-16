@@ -177,6 +177,25 @@ statement from the preprint, clips every one of the 4,194,304 pair cells exactly
 recomputes every perpendicular base area exactly (C = 0.49961383078371414863…), and rejects covers with a cylinder removed
 or shrunk (`controls.py`).
 
+## Structural lower-bound audit
+
+[REPORT.md](REPORT.md) supplies the geometric necessary-condition proof for
+the final 2048-sector family, arbitrary positive shared even node radii, and
+all tilts in [0,1]. An independent standard-library checker recomputes the
+0.4993 lower bound using rational Newton square-root enclosures and verifies
+the complete squared-tilt partition:
+
+```sh
+python structural_independent.py --output structural_independent_result.json
+python -m unittest -v test_structural_independent.py
+```
+
+This is a written proof plus exact finite arithmetic, not a Lean proof or a
+bound for arbitrary cylinder covers. The audit does not certify the generic
+parameter settings of `structural_bound.py`, including its default tilt limit 2.
+Alexander Richard Towell contributed this audit with substantial OpenAI Codex
+assistance; separate AI review is not human peer review.
+
 ## AI assistance
 
 The search, the certificate and both checkers were developed with AI coding assistants (OpenAI Codex and Claude) under the
