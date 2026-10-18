@@ -196,6 +196,33 @@ parameter settings of `structural_bound.py`, including its default tilt limit 2.
 Alexander Richard Towell contributed this audit with substantial OpenAI Codex
 assistance; separate AI review is not human peer review.
 
+[INDEPENDENT_RADII.md](INDEPENDENT_RADII.md) extends the same 0.4993 barrier
+to two independent positive even node-radius profiles, one in each family.
+A segment of test points replaces the single diagonal point and proves a
+quadratic radius inequality. A new exact endpoint check and the same complete
+integral replay verify the arithmetic:
+
+```sh
+python independent_radii.py --output independent_radii_result.json
+python independent_radii_review.py
+python -m unittest -v test_independent_radii.py
+```
+
+The first command checks 1,024 endpoint inequalities and 860,160 rational
+integration cells; its minimum enclosure is
+`71956848089952005/144115188075855872 > 4993/10000`.
+The separate review script checks exact identities and finite geometric
+controls without importing the main checker. The continuum implication is a
+written proof, not a formal proof. The axes, evenness and tilt restriction
+remain essential to the scope; no improved cover is claimed. This extension
+is by Alexander Richard Towell with substantial OpenAI Codex assistance,
+building on Ricardo Pinho's construction and the preceding audit. Separate
+AI review is not human peer review.
+
+Both `python -O independent_radii.py --negative-control endpoint` and
+`python -O independent_radii.py --negative-control partition` must exit 1:
+they reject an invalid endpoint estimate and a missing tilt interval.
+
 ## AI assistance
 
 The search, the certificate and both checkers were developed with AI coding assistants (OpenAI Codex and Claude) under the
