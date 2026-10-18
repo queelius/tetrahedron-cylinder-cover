@@ -1,21 +1,25 @@
-# The 0.4993 barrier with independent even radial profiles
+# The 0.4993 barrier with arbitrary positive radial profiles
 
 Alexander Richard Towell, with substantial OpenAI Codex assistance.
 Predecessor: Ricardo Pinho's construction and the accepted shared-profile
 audit in REPORT.md at ec5e88b8c954b8ce42ee71a993271e14dce1aded.
+The independent-even-profile extension at
+2bff558c3c6ed29dcda80730ef2c255ee58ac477 supplies the segment argument
+and endpoint estimate below. The four-orientation argument removes its
+evenness assumption.
 This is a written proof with exact finite arithmetic, not a formal proof.
 
 ## Statement
 
 Keep the source n=2048 equal sectors, polynomial phi, secant axes and
-0<=tau<=1. Let A_j,B_j be two arbitrary positive profiles, each even under
-j -> n-j, used respectively in the lower and upper intercept triangles.
-They need not agree. If the resulting cylinders cover
+0<=tau<=1. Let A_j,B_j be two arbitrary positive node-radius profiles,
+used respectively in the lower and upper intercept triangles.
+They need not agree and neither is required to be even. If the cylinders cover
 K={|x|<=1-t, |y|<=t}, their total perpendicular-base area divided by sqrt(2)
 is at least 4993/10000.
 
 All coordinate, axis and metric conventions are those of the accepted
-REPORT.md. No claim is made for arbitrary axes, non-even profiles, or tilts
+REPORT.md. No claim is made for arbitrary axes, other sector meshes, or tilts
 outside [0,1]. This does not construct an improved cover.
 
 ## Radial cutoffs and one extra finite hypothesis
@@ -107,37 +111,66 @@ sector. The inherited coefficient checks imply 0<=phi(q_k)<1.
 
 Consequently coverage forces, for every interior segment point,
 
-    rho <= A(q)  or  sigma <= B(-q)=B(q).                  (4)
+    rho <= A(q)  or  sigma <= B(-q).                       (4)
 
 Limits at the segment endpoints may be taken by continuity. The argument
 does not require uniqueness of the angular sector at an endpoint.
 
-## Swapping profiles and the pointwise area inequality
+## Four orientations and the pointwise area inequality
 
 The physical isometry J(x,y,t)=(-y,x,1-t) preserves K. It sends a lower
 sector to the reflected upper sector and an upper sector to the lower
 sector with the same angular interval (axis orientation is immaterial).
-Because the profiles are even, J sends the cover with profiles (A,B) to
-a cover with profiles (B,A). This compares two covers; it does not assert
-that the original cover is invariant under J, or average covers.
+Write A^-(q)=A(-q) and B^-(q)=B(-q). Without any symmetry of the radii,
+the four covers have profiles
 
-At a fixed q, apply (4) in the orientation where A(q)<=B(q), using the
-rotated cover when necessary. Abbreviate these two cutoffs to A,B.
-If A>=T, then A^2+B^2>=2T^2. If rho_0<=A<T, take rho decreasing
-to A from above in (4). It follows that
+    (A,B),       (B,A^-),       (A^-,B^-),       (B^-,A).  (5)
 
-    B >= (1-alpha*A)/beta
-      = T+(alpha/beta)*(T-A) >= 2T-A.
+For example, J sends (0,q A(q),A(q)) to
+(-q A(q),0,1-A(q)), an upper intercept at angle -q with the same radius.
+It sends (q B(q),0,1-B(q)) to (0,q B(q),B(q)). These formulas also
+hold at every node, and reflection commutes with reciprocal-affine
+interpolation. The corresponding axes transform to the reflected upper
+axis and the negative lower axis. Thus (5) describes actual isometric
+images of the cover with the same tau and fixed secant geometry. We neither assert
+that the original cover is invariant nor average covers.
 
-Therefore A+B>=2T and A^2+B^2>=2T^2. If A<rho_0, take rho decreasing
-to rho_0 from above. Then B>=sigma_0>=(3/2)T, so
-A^2+B^2>=(9/4)T^2>=2T^2. In all cases,
+For fixed q, write F(x,y) for the implication
+rho<=x or sigma<=y at every interior point of the segment. Applying (4)
+to the four covers in (5) gives
 
-    (A(q)^2+B(q)^2)/2 >= T(q,tau^2)^2.                    (5)
+    F(A(q),B(-q)),  F(B(q),A(q)),
+    F(A(-q),B(q)),  F(B(-q),A(-q)).                       (6)
 
-The small-radius case is essential: we do not claim A+B>=2T in that
-case. The previous single diagonal point alone gives only max(A,B)>=T
-and cannot prove (5).
+These are exactly the consecutive directed edges of the four-cycle
+
+    z_0=A(q) -> z_1=B(-q) -> z_2=A(-q) -> z_3=B(q) -> z_0.
+
+Whenever F(x,y) holds and x<T, the pair satisfies y>T and
+x^2+y^2>=2T^2. To prove this, first suppose rho_0<=x<T and let rho
+decrease to x from above in the segment. Then
+
+    y >= (1-alpha*x)/beta
+      = T+(alpha/beta)*(T-x) >= 2T-x > T.
+
+Hence x^2+y^2>=x^2+(2T-x)^2=2T^2+2(T-x)^2.
+If x<rho_0, let rho decrease to rho_0 from above instead; then
+y>=sigma_0>=(3/2)T>T and x^2+y^2>=(9/4)T^2>=2T^2.
+
+Pair every cycle vertex z_i<T with its successor z_(i+1), with indices
+taken modulo four. These pairs are disjoint: the successor map is
+injective, and every selected successor is >T and therefore cannot
+itself be a selected small vertex. If there are k small vertices, the
+pairs contribute at least 2k T^2; each of the remaining 4-2k vertices
+is >=T. Consequently,
+
+    A(q)^2+B(-q)^2+A(-q)^2+B(q)^2 >= 4T(q,tau^2)^2.       (7)
+
+The small-radius case is essential: no unconditional sum-of-radii bound
+is used there. Nor do we claim A(q)^2+B(q)^2>=2T^2 for non-even
+profiles. A single diagonal point, two incomplete cycle edges, or
+counting one large radius as compensation for multiple small radii
+would not justify (7).
 
 ## Area and exact inherited arithmetic
 
@@ -148,7 +181,9 @@ Integrating reciprocal affine squares therefore gives the complete cost
     C=(1/2) sum_sectors integral_l^r
       (A(q)^2+B(q)^2)/sqrt(1+tau^2*(a^2+2b^2)) dq.
 
-By (5) and reflection, this is at least
+The secant coefficients at reflected sectors are (a,-b), so the weight
+in this integral is even whether or not the radii are even. Pairing the
+integrals at q and -q and using (7), this is at least
 
     2 sum_positive_sectors integral_l^r
       T(q,tau^2)^2/sqrt(1+tau^2*(a^2+2b^2)) dq.
@@ -166,5 +201,7 @@ failure controls supplement them and are not substitutes for them.
 
 Credit Ricardo Pinho for the axes, explicit cover, normalization and source
 certificate. The accepted shared-profile argument and independent arithmetic
-are predecessor work. This extension removes only the shared-profile
-hypothesis; it does not change the geometric family or improve its cover.
+are predecessor work. The earlier even-profile extension supplied the
+segment and endpoint estimate. The present four-orientation argument
+removes both shared-profile and evenness restrictions on node radii;
+it does not change the geometric family or improve its cover.

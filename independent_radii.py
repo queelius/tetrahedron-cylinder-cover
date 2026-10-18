@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exact obligations for the independent-even-radius extension.
+"""Exact obligations for the arbitrary-positive-radius extension.
 
 Alexander Richard Towell, with substantial OpenAI Codex assistance.
 MIT license; predecessor geometry/certificate: Ricardo Pinho.
@@ -48,8 +48,8 @@ def verify(data):
     sectors = previous.make_sectors(family.n, family.shape)
     endpoint_check = check_endpoints(sectors)
     result = previous.verify(data)
-    result['scope'] = ('fixed final secant axes; independent positive even node-radius '
-                       'profiles in the two families; 0<=tau<=1')
+    result['scope'] = ('fixed final secant axes; arbitrary positive node-radius '
+                       'profiles in the two families, without evenness; 0<=tau<=1')
     result['endpoint_check'] = endpoint_check
     result['proof_kind'] = 'written continuum argument plus exact finite arithmetic; not a formal proof'
     return result
@@ -81,7 +81,7 @@ def main(argv=None):
         if args.output:
             args.output.write_text(json.dumps(result, indent=2)+'\n')
         print(json.dumps({k: v for k, v in result.items() if k != 'interval_bounds'}, indent=2))
-        print('RESULT: certified C >= 4993/10000 for independent even radius profiles')
+        print('RESULT: certified C >= 4993/10000 for arbitrary positive radius profiles')
         return 0
     except (ValueError, TypeError, KeyError, OSError) as error:
         print(f'FAIL: {error}')

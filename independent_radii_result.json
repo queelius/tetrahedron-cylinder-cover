@@ -1,6 +1,6 @@
 {
   "verified": true,
-  "scope": "fixed final secant axes; independent positive even node-radius profiles in the two families; 0<=tau<=1",
+  "scope": "fixed final secant axes; arbitrary positive node-radius profiles in the two families, without evenness; 0<=tau<=1",
   "n": 2048,
   "shape": [
     "-1/200",
@@ -1081,5 +1081,5 @@
   "proof_kind": "written continuum argument plus exact finite arithmetic; not a formal proof",
   "source_certificate_sha256": "5af48956426b32cbb7fcc3b1f38ebe44f81ba77638d0645ab7913a81f2273834",
   "integral_checker_sha256": "55ae6babb2859ea394de390fdd962df434d5becbee24ff3d5d3adeb6c5aee7c9",
-  "checker_sha256": "0d9511bd5a37dd912577ddcfa30911bac8f59b06c97ab9192bf3a84c89a5761f"
+  "checker_sha256": "9f8091ead0a1e3312e8feb6591a469e0994d67cd37d061e45edef72f404dad21"
 }
